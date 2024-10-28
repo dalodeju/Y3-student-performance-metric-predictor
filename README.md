@@ -48,7 +48,7 @@ To predict a student's final average grade as a continuous variable, use the reg
 Clone this repository and install the required packages:
 
 ```bash
-git clone https://github.com/dalodeju/student-performance-metric-predictor
+git clone [link]((https://github.com/dalodeju/Y3-student-performance-metric-predictor.git)).
 cd student-performance-metric-predictor
 pip install ucimlrepo
 pip install scikit-learn
