@@ -4,7 +4,7 @@ This project aims to predict student performance by classifying students' likeli
 
 ## Dataset
 
-The data is derived from two CSV files:
+The [Student Performance data](https://archive.ics.uci.edu/dataset/320/student+performance) is derived from two CSV files:
 - `student-mat.csv`: Data specific to Math performance
 - `student-por.csv`: Data specific to Portuguese performance
 
