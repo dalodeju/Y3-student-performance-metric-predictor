@@ -1,1 +1,1 @@
-# student-performance-metric
+# student-performance-predictor
