@@ -50,5 +50,4 @@ Clone this repository and install the required packages:
 ```bash
 git clone https://github.com/dalodeju/Y3-student-performance-metric-predictor.git
 cd student-performance-metric-predictor
-pip install ucimlrepo
-pip install scikit-learn
+pip install ucimlrepo scikit-learn
