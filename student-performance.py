@@ -26,7 +26,7 @@ binary_columns = ['school', 'sex', 'address', 'famsize', 'Pstatus',
                   'schoolsup', 'famsup', 'paid', 'activities', 'nursery',
                   'higher', 'internet', 'romantic']
 
-combined_data[binary_columns] = combined_data[binary_columns].apply(lambda x: x.map({'yes': 1, 'no': 0, 'U': 1, 'R': 0, 'T': 1, 'A': 0, 'M': 1, 'F': 0}))
+combined_data[binary_columns] = combined_data[binary_columns].apply(lambda x: x.map({'GP': 1, 'MS':0, 'yes': 1, 'no': 0, 'U': 1, 'R': 0, 'T': 1, 'A': 0, 'M': 1, 'F': 0,'LE3': 1,'GT3': 0}))
 
 # columns with more than two categories are one-hot encoded
 nominal_columns = ['Mjob', 'Fjob', 'reason', 'guardian']
@@ -51,4 +51,3 @@ combined_data[numerical_columns] = scaler.fit_transform(combined_data[numerical_
 # uncomment the next 2 lines if doing regression
 # X_regression = combined_data.drop(columns=['G1_math', 'G1_por', 'G2_math', 'G2_por', 'G3_math', 'G3_por', 'G3_avg'])
 # y_regression = combined_data['G3_avg']
-
