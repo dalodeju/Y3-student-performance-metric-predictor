@@ -44,8 +44,58 @@ combined_data[numerical_columns] = scaler.fit_transform(combined_data[numerical_
 
 # For classification (predicting if the student will pass - pass is defined as G3_avg >= 10)
 # uncomment the next 2 lines if doing classification
-# X_classification = combined_data.drop(columns=['G1_math', 'G1_por', 'G2_math', 'G2_por', 'G3_math', 'G3_por', 'G3_avg'])
-# y_classification = (combined_data['G3_avg'] >= 10).astype(int)  # 1 for pass, 0 for fail
+X_classification = combined_data.drop(columns=['G1_math', 'G1_por', 'G2_math', 'G2_por', 'G3_math', 'G3_por', 'G3_avg'])
+y_classification = (combined_data['G3_avg'] >= 10).astype(int)  # 1 for pass, 0 for fail
+
+# Divide data into training and testing data
+from sklearn.model_selection import train_test_split
+Xs_train, Xs_test, y_train, y_test = train_test_split(X_classification, y_classification, test_size=0.3, 
+random_state=1, stratify=y_classification) 
+
+#Logistic Regression
+from sklearn.linear_model import LogisticRegression 
+log_reg = LogisticRegression() 
+log_reg.fit(Xs_train, y_train) 
+
+#Classify the test dataset and output the accuracy.
+classifier_score = log_reg.score(Xs_test,y_test)
+print('The classifier accuracy score of Logistic Regression is{:03.2f}'.format(classifier_score)) 
+
+
+#SVM 
+from sklearn.svm import SVC 
+svm_clf = SVC(C=1.0, kernel='rbf', degree=3, gamma='auto', 
+probability=True) 
+svm_clf.fit(Xs_train, y_train)
+
+#Classify the test dataset and output the accuracy.
+classifier_score = svm_clf.score(Xs_test,y_test)
+print('The classifier accuracy score of SVM is {:03.2f}'.format(classifier_score)) 
+
+#Decision Tree
+#Using decision tree classifier to train a model
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+tree_clf = DecisionTreeClassifier(max_depth=2)
+#max_depth specify the maximum depth of the tree, or how mant levels it can grow
+
+tree_clf.fit(Xs_train,y_train)
+classifier_score = tree_clf.score(Xs_test,y_test)
+print('The classifier accuracy score of Decision Tree is {:03.2f}'.format(classifier_score))
+#We can visualize the trained Decisio Tree
+tree.plot_tree(tree_clf)
+
+#Random Forest 
+#Use RF classifier to perform the training and testing
+from sklearn.ensemble import RandomForestClassifier
+
+rnd_clf = RandomForestClassifier(n_estimators=500, max_leaf_nodes=10, 
+n_jobs=-1) 
+rnd_clf.fit(Xs_train, y_train) 
+
+y_pred_rf = rnd_clf.predict(Xs_test) 
+classifier_score = rnd_clf.score(Xs_test, y_test) 
+print('The classifier accuracy score of Random Forest is {:03.2f}'.format(classifier_score))
 
 # For regression (predicting the final grade G3_avg as a continuous variable)
 # uncomment the next 2 lines if doing regression
