@@ -31,23 +31,57 @@ To prepare the data for modeling, the following preprocessing steps were taken:
 4. **Standardizing Numerical Data**: Numerical columns were standardized to have a mean of 0 and standard deviation of 1 to enhance model performance and consistency.
 5. **Target Variable Preparation**: Separate datasets were prepared for classification (pass/fail) and regression (final grade prediction).
 
-## Usage
+### Classification Methods
 
-### Classification
+For predicting whether a student will pass (G3_avg ≥ 10) or fail (G3_avg < 10), various classification models were tested. To ensure consistent results, **5-fold cross-validation** was applied across each classifier using **Stratified K-Fold** to maintain the proportion of passing and failing cases in each fold.
 
-To classify whether a student is likely to pass, use the classification model. This model takes various student attributes (e.g., study time, parental education) as input and predicts a binary outcome:
-- 1 for "Pass" (G3_avg ≥ 10)
-- 0 for "Fail" (G3_avg < 10)
+1. **Logistic Regression**:
+   - Logistic regression is a widely used model for binary classification.
+   - Each student's attributes (e.g., study time, parental education) were used as independent variables, while the binary pass/fail label served as the target variable.
+   - Cross-validation accuracy scores were obtained to evaluate model performance.
 
-### Regression
+2. **Support Vector Machine (SVM)**:
+   - The SVM model with a **radial basis function (RBF)** kernel was trained to classify students based on their attributes.
+   - Hyperparameters such as `C`, `gamma`, and `kernel type` were optimized using GridSearchCV to balance the trade-off between margin maximization and classification accuracy.
 
-To predict a student's final average grade as a continuous variable, use the regression model. The model predicts the `G3_avg` based on student features, providing an estimated grade level.
+3. **Decision Tree Classifier**:
+   - A decision tree classifier with a maximum depth of 2 was used to limit overfitting.
+   - The model splits student data into nodes based on attribute values, providing a visual and interpretable approach for classifying student performance.
+   - Cross-validation accuracy scores were calculated to gauge model reliability.
 
-## Installation
+4. **Multi-Layer Perceptron (MLP) Neural Network**:
+   - An MLP with a single hidden layer of 100 neurons and a **ReLU activation function** was used.
+   - The model was optimized using the Adam solver, with a max iteration of 300 to ensure convergence without excessive computation.
+   - MLP provided a more complex classification approach, capturing non-linear relationships between student attributes and their pass/fail outcome.
 
-Clone this repository and install the required packages:
+After cross-validation, the average accuracy scores across folds were calculated for each model, allowing for a performance comparison.
+
+### Regression Methods
+
+To predict students' final average grade (G3_avg) as a continuous outcome, several regression models were used:
+
+1. **Linear Regression**:
+   - Linear regression was applied to establish a baseline for predicting final grades.
+   - MSE and R² scores were calculated across each fold to assess model performance.
+
+2. **Support Vector Regression (SVR)**:
+   - SVR with both **linear and RBF kernels** was tested, with hyperparameters optimized using grid search.
+   - MSE and R² scores were computed to measure predictive accuracy.
+
+3. **Decision Tree Regressor**:
+   - Decision tree regressor was implemented with different depths to find the most accurate configuration for predicting continuous grades.
+   - The model’s performance was evaluated based on MSE and R² scores.
+
+4. **Multi-Layer Perceptron (MLP) Regressor**:
+   - An MLP regressor with similar settings to the classification MLP model was used.
+   - The mean squared error (MSE) and R² score provided a measure of prediction quality across folds.
+
+### Installation
+
+To use this project, clone the repository and install the required packages:
 
 ```bash
 git clone https://github.com/dalodeju/Y3-student-performance-metric-predictor.git
 cd student-performance-metric-predictor
 pip install ucimlrepo scikit-learn
+
