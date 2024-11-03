@@ -1,5 +1,3 @@
-# this code has StratifiedKFold
-
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -109,27 +107,24 @@ from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neural_network import MLPRegressor
-from sklearn.metrics import make_scorer, mean_squared_error, r2_score
+from sklearn.metrics import make_scorer, mean_squared_error
 from sklearn.model_selection import GridSearchCV
 
 # Define cross-validation
 kfold = KFold(n_splits=5, shuffle=True, random_state=42)
 
-# Define custom scoring functions for MSE and R²
+# Define custom scoring functions for MSE 
 mse_scorer = make_scorer(mean_squared_error, greater_is_better=False)
-r2_scorer = make_scorer(r2_score)
 
 # Linear Regression with K-Fold Cross-Validation
 linear_model = LinearRegression()
 mse_linear = cross_val_score(linear_model, X_regression, y_regression, cv=kfold, scoring=mse_scorer)
-r2_linear = cross_val_score(linear_model, X_regression, y_regression, cv=kfold, scoring=r2_scorer)
 
-# Display MSE and R² for each fold individually for Linear Regression
+# Display MSE for each fold individually for Linear Regression
 print(f"Linear Regression MSE for each fold: {-mse_linear}")
-print(f"Linear Regression R² for each fold: {-r2_linear}")
 
-# Display the mean MSE and R² (average MSE and R² of all folds)
-print(f"Linear Regression:\nMean MSE: {-np.mean(mse_linear):.2f}\nMean R²: {np.mean(r2_linear):.2f}\n")
+# Display the mean MSE (average MSE of all folds)
+print(f"Linear Regression:\nMean MSE: {-np.mean(mse_linear):.2f}\n")
 
 # Support Vector Regression with K-Fold Cross-Validation
 svr_param_grid = {
@@ -139,16 +134,13 @@ svr_param_grid = {
     'kernel': ['rbf', 'linear']
 }
 svr_model = GridSearchCV(SVR(), param_grid=svr_param_grid, cv=kfold, scoring=mse_scorer)
-svr_model = GridSearchCV(SVR(), param_grid=svr_param_grid, cv=kfold, scoring=r2_scorer)
 mse_svr = cross_val_score(svr_model, X_regression, y_regression, cv=kfold, scoring=mse_scorer)
-r2_svr = cross_val_score(svr_model, X_regression, y_regression, cv=kfold, scoring=r2_scorer)
 
-# Display MSE and R²for each fold individually for SVR
+# Display MSE for each fold individually for SVR
 print(f"Support Vector Regression MSE for each fold: {-mse_svr}")
-print(f"Support Vector Regression R² for each fold: {-r2_svr}")
 
-# Display the mean MSE and R² (average MSE and R² of all folds)
-print(f"Support Vector Regression:\nMean MSE: {-np.mean(mse_svr):.2f}\nMean R²: {np.mean(r2_svr):.2f}\n")
+# Display the mean MSE (average MSE of all folds)
+print(f"Support Vector Regression:\nMean MSE: {-np.mean(mse_svr):.2f}\n")
 
 # Decision Tree Regression with K-Fold Cross-Validation
 decision_tree_model = DecisionTreeRegressor()
@@ -160,25 +152,20 @@ dt_param_grid = {
     'min_samples_leaf': [1, 5, 10]
 }
 decision_tree_model = GridSearchCV(DecisionTreeRegressor(), param_grid=dt_param_grid, cv=kfold, scoring=mse_scorer)
-decision_tree_model = GridSearchCV(DecisionTreeRegressor(), param_grid=dt_param_grid, cv=kfold, scoring=r2_scorer)
 mse_dt = cross_val_score(decision_tree_model, X_regression, y_regression, cv=kfold, scoring=mse_scorer)
-r2_dt = cross_val_score(decision_tree_model, X_regression, y_regression, cv=kfold, scoring=r2_scorer)
 
-# Display MSE and R² for each fold individually for Decision Tree Regression 
+# Display MSE for each fold individually for Decision Tree Regression 
 print(f"Decision Tree Regression MSE for each fold: {-mse_dt}")
-print(f"Decision Tree Regression R² for each fold: {-r2_dt}")
 
-# Display the mean MSE and R² (average MSE abd R² of all folds)
-print(f"Decision Tree Regression:\nMean MSE: {-np.mean(mse_dt):.2f}\nMean R²: {np.mean(r2_dt):.2f}\n")
+# Display the mean MSE (average MSE of all folds)
+print(f"Decision Tree Regression:\nMean MSE: {-np.mean(mse_dt):.2f}\n")
 
 # Multi-Layer Perceptron Regression with K-Fold Cross-Validation
 mlp_model = MLPRegressor(max_iter=1000, learning_rate_init=0.001)
 mse_mlp = cross_val_score(mlp_model, X_regression, y_regression, cv=kfold, scoring=mse_scorer)
-r2_mlp = cross_val_score(mlp_model, X_regression, y_regression, cv=kfold, scoring=r2_scorer)
 
-# Display MSE and R² for each fold individually for Linear Regression
+# Display MSE for each fold individually for Multi Layer Perceptron
 print(f"Multi-Layer Perceptron MSE for each fold: {-mse_mlp}")
-print(f"Multi-Layer Perceptron R² for each fold: {-r2_mlp}")
 
-# Display the mean MSE and R² (average MSE and R² of all folds)
-print(f"Multi-Layer Perceptron:\nMean MSE: {-np.mean(mse_mlp):.2f}\nMean R²: {np.mean(r2_mlp):.2f}\n")
+# Display the mean MSE (average MSE of all folds)
+print(f"Multi-Layer Perceptron:\nMean MSE: {-np.mean(mse_mlp):.2f}\n")
