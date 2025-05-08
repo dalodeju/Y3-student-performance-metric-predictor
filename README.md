@@ -2,6 +2,16 @@
 
 This project aims to predict student performance by classifying students' likelihood of passing or estimating their final grades based on academic, social, and personal factors. The analysis leverages two datasets related to Math and Portuguese courses, examining attributes such as family background, study habits, and extracurricular activities to understand their impact on student outcomes.
 
+### Installation
+
+To use this project, clone the repository and install the required packages:
+
+```bash
+git clone https://github.com/dalodeju/Y3-student-performance-metric-predictor.git
+cd student-performance-metric-predictor
+pip install ucimlrepo scikit-learn
+```
+
 ## Dataset
 
 The [Student Performance](https://archive.ics.uci.edu/dataset/320/student+performance) dataset consists of two CSV files:
@@ -75,13 +85,4 @@ To predict students' final average grade (G3_avg) as a continuous outcome, sever
 4. **Multi-Layer Perceptron (MLP) Regressor**:
    - An MLP regressor with similar settings to the classification MLP model was used.
    - The mean squared error (MSE) and R² score provided a measure of prediction quality across folds.
-
-### Installation
-
-To use this project, clone the repository and install the required packages:
-
-```bash
-git clone https://github.com/dalodeju/Y3-student-performance-metric-predictor.git
-cd student-performance-metric-predictor
-pip install ucimlrepo scikit-learn
 
